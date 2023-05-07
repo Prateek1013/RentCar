@@ -1,7 +1,6 @@
 import { Card, Button,Space } from 'antd';
 const { Meta } = Card;
 const Dashboard = ({Data}) => {
-    // console.log(Data[2]);
     return ( 
         <div>
             <h2>Cars for Rent</h2>
@@ -17,8 +16,9 @@ const Dashboard = ({Data}) => {
     <Space direction="vertical" style={{ width: '100%' }}>
     <Meta title={car.details.name}/>
     <Meta title={car.details.price+' per day'}/>
-    <Button type="primary" block href='#'>Book</Button>
-    <Button block href='#'>Details</Button>
+    { !car.book_status && <Meta title='yes'/>}
+    <Button type="primary" disabled={car.book_status} block href={`/book/${car.id}`}>Book</Button>
+    <Button block href={`/details/${car.id}`}>Details</Button>
     </Space>
   </Card>))}
   </Space>
