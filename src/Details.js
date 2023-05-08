@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 const { Meta } = Card;
 
-const Details = ({Data}) => {
-const {id}=useParams();
+const Details = (props) => {
+const {id,name,contact,start,end}=useParams();
+const {Data,person}=props;
+console.log(person);
 const car=Data.find(item => item.id==id);
 var color='error';
 var tagmsg='Unavailable';
@@ -55,6 +57,14 @@ const nav=(e)=>{
         width: 500,
       }}
     >
+    {name && <Space direction="vertical" style={{ width:'100%' }}>
+    <p>This {car.details.name} is Booked by {name} from <br />
+    {start} to {end}.
+    </p>
+    <br />
+    <p>Contact Number of the customer {contact}</p>
+
+    </Space>}
     <button onClick={nav}>Dashboard</button>
     </Card>
     </Space>

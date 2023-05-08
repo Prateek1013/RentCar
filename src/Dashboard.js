@@ -18,7 +18,7 @@ const Dashboard = ({Data}) => {
     <Meta title={car.details.price+' per day'}/>
     { !car.book_status && <Meta title='yes'/>}
     <Button type="primary" disabled={car.book_status} block href={`/book/${car.id}`}>Book</Button>
-    <Button block href={`/details/${car.id}`}>Details</Button>
+    <Button disabled={car.book_status} block href={`/details/${car.id}` }>Details</Button>
     </Space>
   </Card>))}
   </Space>

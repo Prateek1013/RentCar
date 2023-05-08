@@ -1,19 +1,23 @@
 import { useState , useContext } from "react";
 import { useParams} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { Modal} from 'antd';
 
 import { MyContext } from './MyContext';
-const Booking = () => {
+
+const Booking = (props) => {
     const {id}=useParams();
     const [name,setName]=useState('');
     const [contact,setContact]=useState('');
     const [startDate,setStartDate]=useState('');
     const [endDate,setEndDate]=useState('');
-    
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+
     const navigate = useNavigate();
 
     const {dat,setdat } = useContext(MyContext);
-
+    
     const handleSubmit = (e)=>{
     e.preventDefault();
     const indianPhoneNumberRegex = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
@@ -22,20 +26,34 @@ const Booking = () => {
     }
     const startDateObject = new Date(startDate);
     const endDateObject = new Date(endDate);
-
     if (startDateObject.getTime() > endDateObject.getTime()) {
       alert("Start date is After end date.");
     };
-
+    const person={name,contact,startDate,endDate};
+    props.booked(person);
     const newdat=[...dat];
     const index=dat.findIndex( obj => obj.id==id);
     dat[index].book_status=true;
     setdat(newdat);
-    // const person={name,contact,startDate,endDate};
-    // const data={person:person,id:id};
-    // props.booked(data);
-    navigate(`/details/${id}`);
+    if (e.target.checkValidity()) {
+        setIsSubmitted(true);
+        return true; 
+      } else {
+        return false;
+      }
 }
+const success = (e) => {
+    if (isSubmitted) {
+        Modal.success({
+            content: `Booking confirmed from ${startDate} to ${endDate}`,
+            onOk() {
+              navigate(`/details/${id}/${name}/${contact}/${startDate}/${endDate}`);
+            }
+          });
+      } else {
+        alert('Please submit the form first!');
+      }
+  };
 
     return ( 
         <div>
@@ -61,7 +79,7 @@ const Booking = () => {
             onChange={(e)=>{
                 setEndDate(e.target.value);
             }}/>
-            <button >Book</button>
+            <button type="submit" onClick={success}>Book</button>
             </form>
         </div>
      );

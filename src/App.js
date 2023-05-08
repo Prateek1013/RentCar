@@ -10,21 +10,19 @@ import { MyContext } from './MyContext';
 function App() {
 
   const [dat,setdat]=useState(Data);
-  // const handleBooked = (booked) => {
-  //   console.log(booked.person);
-  //   console.log(booked.id); 
-  //   // const index=Data.findIndex( obj => obj.id==booked.id);
-  //   // Data[index].book_status=true;
-  //   // setdat(Data);
-  // };
+  const [person,setPerson]=useState({});
+  const handleBooked = (person) => {
+    console.log(person);
+    setPerson(person);
+  };
   return (
     <MyContext.Provider value={{ dat,setdat }}>
     <Router>
     <div>
       <Routes>
-      <Route path='/' element={ <Dashboard Data={dat}/>} />
-      <Route path='/details/:id' element={<Details Data={dat}/>} />
-      <Route path='/book/:id' element={<Booking/>} />
+      <Route path='/' element={ <Dashboard Data={dat} person={person} />} />
+      <Route exact path='/details/:id/:name?/:contact?/:start?/:end?' element={<Details Data={dat}/>} />
+      <Route path='/book/:id' element={<Booking booked={handleBooked}/>} />
       </Routes>
     </div>
     </Router>
