@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 Hosted on: https://main--wondrous-cranachan-152453.netlify.app/
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
