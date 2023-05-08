@@ -1,7 +1,7 @@
 import { useState , useContext } from "react";
 import { useParams} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { Modal} from 'antd';
+import { Modal , Card, Space} from 'antd';
 
 import { MyContext } from './MyContext';
 
@@ -12,7 +12,13 @@ const Booking = (props) => {
     const [startDate,setStartDate]=useState('');
     const [endDate,setEndDate]=useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
-
+    const divStyle = {
+    height: '100vh',
+    backgroundImage: 'linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    };
 
     const navigate = useNavigate();
 
@@ -56,31 +62,46 @@ const success = (e) => {
   };
 
     return ( 
-        <div>
-            <h2>Booking Details</h2>
+        <div style={divStyle}>
+            <br />
+            <Card
+    title="Booking Details"
+    bordered={true}
+    style={{
+      width: 500,
+      height:500,
+    }}
+  >
             <form onSubmit={handleSubmit}>
+         <Space direction="vertical" style={{ width: '100%' }}>
             <label>Name</label>
             <input type="text" required value={name} 
             onChange={(e)=>{
                 setName(e.target.value);
             }} />
+            <br /> 
             <label> Contact number </label>
             <input type="tel" required value={contact}
             onChange= {(e)=>{
                 setContact(e.target.value);
             }}/>
+            <br />
             <label> Start Date </label>
             <input type="date" required value={startDate}
             onChange= {(e)=>{
                 setStartDate(e.target.value);
             }}/>
+            <br />
             <label>End Date</label>
             <input type="date" required value={endDate}
             onChange={(e)=>{
                 setEndDate(e.target.value);
             }}/>
+            <br />
             <button type="submit" onClick={success}>Book</button>
+            </Space>
             </form>
+            </Card>
         </div>
      );
 }
