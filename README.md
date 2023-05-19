@@ -1,6 +1,4 @@
 # Getting Started with Create React App
-Hosted on: https://main--wondrous-cranachan-152453.netlify.app/
-
 
 ## Available Scripts
 
